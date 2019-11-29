@@ -3,15 +3,38 @@
  */
 
 import { Navigation } from "react-native-navigation";
-import App from './App';
+import CenterComponent from './components/center.component.js';
+import SideComponent from './components/side.component.js';
 
-Navigation.registerComponent(`navigation.playground.WelcomeScreen`, () => App);
+Navigation.registerComponent(`SideComponent`, () => SideComponent);
+Navigation.registerComponent(`CenterComponent`, () => CenterComponent);
 
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
     root: {
-      component: {
-        name: "navigation.playground.WelcomeScreen"
+      sideMenu: {
+        left: {
+          component: {
+            name: 'SideComponent',
+          }
+        },
+        center: {
+          stack: {
+            children: [{
+              component: {
+                name: 'CenterComponent',
+              }
+            }],
+            options: {
+              topBar: {
+                visible: true,
+                title: {
+                  text: 'Test RNN SideMenu',
+                },
+              }
+            }
+          }
+        }
       }
     }
   });
